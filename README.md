@@ -1,4 +1,4 @@
 # Cool Beers App
 
-//To do documentation
+- App is Avaiable at https://beers-131cb.web.app/
 
