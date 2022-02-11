@@ -11,13 +11,23 @@ export default function Card({ beer, setForceRender, forceRender }) {
   const location = useLocation()
 
   const likeHandler = (favbeer, command) => {
+    //If page is refreshed, takes initial set from localstorage becouse favouritesSet will be empty
+    const handler =
+      localStorage.getItem('favBeers') !== null
+        ? new Set(JSON.parse(localStorage.getItem('favBeers')))
+        : favouritesSet
+
+    //If we are on favourites page, user can only remove the beer
     command === 'like' && !location.pathname.endsWith('favourites')
-      ? favouritesSet.add(JSON.stringify(favbeer))
+      ? handler.add(JSON.stringify(favbeer))
       : command === 'dislike' && !location.pathname.endsWith('favourites')
-      ? favouritesSet.delete(JSON.stringify(favbeer))
-      : favouritesSet.delete(JSON.stringify(favbeer))
+      ? handler.delete(JSON.stringify(favbeer))
+      : handler.delete(JSON.stringify(favbeer))
+
+    localStorage.setItem('favBeers', JSON.stringify(Array.from(handler)))
     setIsLiked(!isLiked)
-    setForceRender(!forceRender)
+    //Force the page to rerender when beer is deleted
+    setForceRender && setForceRender(!forceRender)
   }
 
   // Play open beer sound when clicked on bottle
@@ -32,6 +42,7 @@ export default function Card({ beer, setForceRender, forceRender }) {
         onClick={start}
         className={`card-img-top ${styles.image}`}
         src={beer.image_url}
+        alt=""
       />
       <div className={`card-body ${styles.textholder}`}>
         {isLiked || location.pathname.endsWith('favourites') ? (
