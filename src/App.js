@@ -1,14 +1,19 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
-import HomePage from './components/HomePage/HomePage'
-import FavouritesContextProvider from './Contexts/FavouritesContext'
-import Layout from './components/common/Layout'
-import FavouritesPage from './components/Favourites/FavouritesPage'
-import RandomBeer from './components/RandomBeer/RandomBeer'
+import {
+  Snackbar,
+  RandomBeer,
+  FavouritesPage,
+  Layout,
+  HomePage,
+  FavouritesContextProvider,
+} from '../src/components/index'
+
 function App() {
   return (
     <div className="App">
       <FavouritesContextProvider>
+        <Snackbar />
         <Layout>
           <Routes>
             <Route path="/" element={<HomePage />} />

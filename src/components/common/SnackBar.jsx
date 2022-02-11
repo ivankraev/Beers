@@ -1,27 +1,24 @@
-import { useState } from 'react'
-import { Toast, Col, Row, Button } from 'react-bootstrap'
-
-export default function Example() {
-  const [show, setShow] = useState(false)
-
+import { Toast, Col, Row } from 'react-bootstrap'
+import { useContext } from 'react'
+import { FavouritesContext } from '../../Contexts/FavouritesContext'
+import styles from './Snackbar.module.css'
+export default function SnackBar() {
+  const { notifications, setNotifications } = useContext(FavouritesContext)
   return (
     <Row>
       <Col xs={6}>
-        <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide>
+        <Toast
+          onClose={() => setNotifications(false)}
+          show={notifications}
+          delay={3000}
+          autohide
+          className={styles.container}
+        >
           <Toast.Header>
-            <img
-              src="holder.js/20x20?text=%20"
-              className="rounded me-2"
-              alt=""
-            />
-            <strong className="me-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
+            <strong className="me-auto">Notification</strong>
           </Toast.Header>
-          <Toast.Body>Woohoo, you're reading this text in a Toast!</Toast.Body>
+          <Toast.Body>Succesfully added/removed beer</Toast.Body>
         </Toast>
-      </Col>
-      <Col xs={6}>
-        <Button onClick={() => setShow(true)}>Show Toast</Button>
       </Col>
     </Row>
   )

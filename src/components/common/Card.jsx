@@ -1,13 +1,12 @@
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai'
 import { useLocation } from 'react-router-dom'
-import { useContext } from 'react'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { FavouritesContext } from '../../Contexts/FavouritesContext'
 import styles from './Card.module.css'
 import beerSound from '../../audio/openbeer.mp3'
 export default function Card({ beer, setForceRender, forceRender }) {
   const [isLiked, setIsLiked] = useState(false)
-  const { favouritesSet } = useContext(FavouritesContext)
+  const { favouritesSet, setNotifications } = useContext(FavouritesContext)
   const location = useLocation()
 
   const likeHandler = (favbeer, command) => {
@@ -28,6 +27,8 @@ export default function Card({ beer, setForceRender, forceRender }) {
     setIsLiked(!isLiked)
     //Force the page to rerender when beer is deleted
     setForceRender && setForceRender(!forceRender)
+
+    setNotifications(true)
   }
 
   // Play open beer sound when clicked on bottle
