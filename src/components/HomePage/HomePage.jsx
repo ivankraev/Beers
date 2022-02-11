@@ -4,7 +4,7 @@ import Searchbar from "./Searchbar";
 export default function HomePage() {
   return (
     <SearchContextProvider>
-      <div style={{ padding: 48, backgroundColor: "#fcfcfc" }}>
+      <div style={{ padding: "48px 96px", backgroundColor: "#fcfcfc" }}>
         <Searchbar />
         <BeersContainer></BeersContainer>
       </div>

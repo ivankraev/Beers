@@ -1,18 +1,18 @@
-import { useState } from 'react'
-import styles from '../HomePage/BeersContainer.module.css'
-import Card from '../common/Card'
+import { useState } from "react";
+import styles from "../HomePage/BeersContainer.module.css";
+import Card from "../common/Card";
 export default function FavouritesContainer() {
-  const [forceRender, setForceRender] = useState(false)
+  const [forceRender, setForceRender] = useState(false);
 
   const favBeers =
-    localStorage.getItem('favBeers') === null
+    localStorage.getItem("favBeers") === null
       ? []
-      : JSON.parse(localStorage.getItem('favBeers')).map((beer) =>
-          JSON.parse(beer),
-        )
+      : JSON.parse(localStorage.getItem("favBeers")).map((beer) =>
+          JSON.parse(beer)
+        );
 
   return (
-    <div style={{ padding: 48 }}>
+    <div style={{ padding: "48px 96px" }}>
       <h1 style={{ marginBottom: 24 }}>Favourites</h1>
       <div className={styles.container}>
         {favBeers.length > 0 ? (
@@ -29,5 +29,5 @@ export default function FavouritesContainer() {
         )}
       </div>
     </div>
-  )
+  );
 }

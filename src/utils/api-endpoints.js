@@ -5,7 +5,7 @@ export const endpoints = {
     return `beers/?beer_name=${slug}`
   },
   getSingleBeer: (id) => {
-    return `${id}`
+    return `beers/${id}`
   },
   paginatedBeers: (page, beersPerPage) => {
     return `beers?page=${page}&per_page=${beersPerPage}`
