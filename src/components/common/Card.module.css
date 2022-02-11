@@ -17,10 +17,7 @@
   color: #00d1b2;
   cursor: pointer;
 }
-.cardtext {
-  max-height: 100px;
-  overflow: hidden;
-}
+
 .textholder {
   text-align: left;
   margin-left: 48px;

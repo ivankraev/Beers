@@ -1,24 +1,28 @@
-import { useState } from "react";
-import { AiOutlineStar, AiFillStar } from "react-icons/ai";
-import { useContext } from "react";
-import { FavouritesContext } from "../../Contexts/FavouritesContext";
-import styles from "./Card.module.css";
-import beerSound from "../../audio/openbeer.mp3";
+import { useState } from 'react'
+import { AiOutlineStar, AiFillStar } from 'react-icons/ai'
+import { useContext } from 'react'
+import { FavouritesContext } from '../../Contexts/FavouritesContext'
+import styles from './Card.module.css'
+import { useLocation } from 'react-router-dom'
+import beerSound from '../../audio/openbeer.mp3'
 export default function Card({ beer }) {
-  const [isLiked, setIsLiked] = useState(false);
-  const { favouritesSet } = useContext(FavouritesContext);
-
+  const [isLiked, setIsLiked] = useState(false)
+  const { favouritesSet } = useContext(FavouritesContext)
+  let location = useLocation()
   const likeHandler = (favbeer, command) => {
-    setIsLiked(!isLiked);
-    command === "like"
-      ? favouritesSet.add(favbeer)
-      : favouritesSet.delete(favbeer);
-  };
+    if (command === 'like') {
+      favouritesSet.add(JSON.stringify(favbeer))
+    } else {
+      favouritesSet.delete(JSON.stringify(favbeer))
+    }
+    setIsLiked(!isLiked)
+    console.log(favouritesSet)
+  }
 
   const start = () => {
-    const openBeerSound = new Audio(beerSound);
-    openBeerSound.play();
-  };
+    const openBeerSound = new Audio(beerSound)
+    openBeerSound.play()
+  }
 
   return (
     <div className={`card ${styles.cardholder}`}>
@@ -32,20 +36,24 @@ export default function Card({ beer }) {
           <AiFillStar
             className={styles.staricon}
             onClick={() => {
-              likeHandler(beer, "dislike");
+              likeHandler(beer, 'dislike')
             }}
           />
         ) : (
           <AiOutlineStar
             className={styles.staricon}
             onClick={() => {
-              likeHandler(beer, "like");
+              likeHandler(beer, 'like')
             }}
           />
         )}
         <h5 className="card-title">{beer.name}</h5>
-        <p className={`card-text ${styles.cardtext}`}>{beer.description}</p>
+        <p className="card-text">
+          {beer.description.length > 120
+            ? beer.description.substring(0, 120) + ' ...'
+            : beer.description}
+        </p>
       </div>
     </div>
-  );
+  )
 }
