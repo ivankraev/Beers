@@ -6,13 +6,13 @@ import styles from "./Card.module.css";
 import beerSound from "../../audio/openbeer.mp3";
 export default function Card({ beer }) {
   const [isLiked, setIsLiked] = useState(false);
-  const { setFavourites, favourites } = useContext(FavouritesContext);
+  const { favouritesSet } = useContext(FavouritesContext);
 
   const likeHandler = (favbeer, command) => {
     setIsLiked(!isLiked);
     command === "like"
-      ? setFavourites([...favourites, favbeer])
-      : setFavourites(favourites.filter((beer) => beer.id !== favbeer.id));
+      ? favouritesSet.add(favbeer)
+      : favouritesSet.delete(favbeer);
   };
 
   const start = () => {
