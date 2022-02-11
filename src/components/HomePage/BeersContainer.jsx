@@ -18,10 +18,10 @@ function BeersContainer() {
     };
     getAllBeers();
   }, []);
-  console.log(search);
+
   return (
     <>
-          {searchedBeers.length > 0 && (
+      {searchedBeers.length > 0 && (
         <Button
           className={styles.backbutton}
           onClick={() => {
@@ -40,7 +40,6 @@ function BeersContainer() {
               <Card key={beer.id} beer={beer}></Card>
             ))}
       </div>
-
     </>
   );
 }

@@ -10,8 +10,8 @@ export default function Layout({ children }) {
           <h1 className={styles.textcolor}>Beans Love Beers</h1>
           <div className={styles.navwrapper}>
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#favourites">Favourites</Nav.Link>
+              <Link to={"/"}>Home</Link>
+              <Link to={"favourites"}>favourites</Link>
             </Nav>
           </div>
         </div>
