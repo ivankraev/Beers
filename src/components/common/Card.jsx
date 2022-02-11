@@ -2,23 +2,25 @@ import { useState } from 'react'
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai'
 import { useContext } from 'react'
 import { FavouritesContext } from '../../Contexts/FavouritesContext'
-import styles from './Card.module.css'
 import { useLocation } from 'react-router-dom'
+import styles from './Card.module.css'
 import beerSound from '../../audio/openbeer.mp3'
-export default function Card({ beer }) {
+export default function Card({ beer, setForceRender, forceRender }) {
   const [isLiked, setIsLiked] = useState(false)
   const { favouritesSet } = useContext(FavouritesContext)
-  let location = useLocation()
+  const location = useLocation()
+
   const likeHandler = (favbeer, command) => {
-    if (command === 'like') {
-      favouritesSet.add(JSON.stringify(favbeer))
-    } else {
-      favouritesSet.delete(JSON.stringify(favbeer))
-    }
+    command === 'like' && !location.pathname.endsWith('favourites')
+      ? favouritesSet.add(JSON.stringify(favbeer))
+      : command === 'dislike' && !location.pathname.endsWith('favourites')
+      ? favouritesSet.delete(JSON.stringify(favbeer))
+      : favouritesSet.delete(JSON.stringify(favbeer))
     setIsLiked(!isLiked)
-    console.log(favouritesSet)
+    setForceRender(!forceRender)
   }
 
+  // Play open beer sound when clicked on bottle
   const start = () => {
     const openBeerSound = new Audio(beerSound)
     openBeerSound.play()
@@ -32,7 +34,7 @@ export default function Card({ beer }) {
         src={beer.image_url}
       />
       <div className={`card-body ${styles.textholder}`}>
-        {isLiked ? (
+        {isLiked || location.pathname.endsWith('favourites') ? (
           <AiFillStar
             className={styles.staricon}
             onClick={() => {
@@ -50,7 +52,7 @@ export default function Card({ beer }) {
         <h5 className="card-title">{beer.name}</h5>
         <p className="card-text">
           {beer.description.length > 120
-            ? beer.description.substring(0, 120) + ' ...'
+            ? beer.description.substring(0, 120) + '...'
             : beer.description}
         </p>
       </div>

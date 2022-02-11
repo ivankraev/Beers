@@ -1,9 +1,9 @@
-import { useContext } from 'react'
 import { FavouritesContext } from '../../Contexts/FavouritesContext'
-import { Button } from 'react-bootstrap'
+import { useContext, useState } from 'react'
 import styles from '../HomePage/BeersContainer.module.css'
 import Card from '../common/Card'
 export default function FavouritesContainer() {
+  const [forceRender, setForceRender] = useState(false)
   const { favouritesSet } = useContext(FavouritesContext)
   const formattedSet = [...favouritesSet].map((item) => {
     if (typeof item === 'string') return JSON.parse(item)
@@ -14,7 +14,12 @@ export default function FavouritesContainer() {
       <h1 style={{ marginBottom: 24 }}>Favourites</h1>
       <div className={styles.container}>
         {Array.from(formattedSet).map((beer, index) => (
-          <Card key={index} beer={beer}></Card>
+          <Card
+            key={index}
+            beer={beer}
+            setForceRender={setForceRender}
+            forceRender={forceRender}
+          ></Card>
         ))}
       </div>
     </div>
