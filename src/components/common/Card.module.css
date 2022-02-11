@@ -1,0 +1,26 @@
+.cardholder {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 16px;
+}
+.image {
+  width: 100px;
+  height: 150px;
+  object-fit: contain;
+}
+.staricon {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  color: #00d1b2;
+  cursor: pointer;
+}
+.cardtext {
+  max-height: 100px;
+  overflow: hidden;
+}
+.textholder {
+  text-align: left;
+  margin-left: 48px;
+}

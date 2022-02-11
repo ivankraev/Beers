@@ -1,0 +1,11 @@
+.container {
+  display: grid;
+  gap: 2rem;
+  overflow: hidden;
+  grid-template-columns: repeat(auto-fit, minmax(352px, 1fr));
+}
+.backbutton {
+  position: absolute;
+  left: 48px;
+
+}
