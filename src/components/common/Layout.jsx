@@ -3,6 +3,9 @@ import { Nav, Navbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import styles from './Layout.module.css'
 export default function Layout({ children }) {
+  const linkStyles = {
+    textDecoration: 'none',
+  }
   return (
     <>
       <Navbar className={styles.appbarcontainer}>
@@ -10,8 +13,15 @@ export default function Layout({ children }) {
           <h1 className={styles.textcolor}>Beans Love Beers</h1>
           <div className={styles.navwrapper}>
             <Nav className="me-auto">
-              <Link to={'/'}>Home</Link>
-              <Link to={'favourites'}>favourites</Link>
+              <Link style={linkStyles} to={'/'}>
+                <li>Home</li>
+              </Link>
+              <Link style={linkStyles} to={'favourites'}>
+                <li>Favourites</li>
+              </Link>
+              <Link style={linkStyles} to={'random'}>
+                <li>Random</li>
+              </Link>
             </Nav>
           </div>
         </div>
