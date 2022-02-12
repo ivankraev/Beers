@@ -2,6 +2,11 @@
 
 - App is Avaiable at https://beers-131cb.web.app/
 
+# Tools used:
+- Styling - Boostrap
+- Fetching data - axios
+- Deployment - Firebase tools
+
 # This is how the home page looks like
 
 - Beer opening sound when user clicks on the image
