@@ -1,6 +1,7 @@
 import './App.css'
 import { Routes, Route } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { ethers } from 'ethers'
 import {
   Snackbar,
   RandomBeer,
@@ -12,9 +13,22 @@ import {
 } from '../src/components/index'
 import MetamaskTransaction from './components/common/MetaMaskTransaction/MetamaskTransaction'
 function App() {
-  const [isConnected, setIsConnected] = useState(
-    Boolean(localStorage.getItem('metamask-account')),
-  )
+  const [isConnected, setIsConnected] = useState(false)
+
+  const checkIfAuthenticated = async () => {
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const address = await signer.getAddress();
+      address && setIsConnected(true)
+    } catch (error) {
+      setIsConnected(false)
+    }
+  };
+
+  useEffect(() => {
+    checkIfAuthenticated()
+  }, [])
 
   return (
     <div className="App">

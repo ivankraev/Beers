@@ -1,43 +1,39 @@
-import { Button, Spinner } from 'react-bootstrap'
-import { useState, useContext } from 'react'
-import { FavouritesContext } from '../../Contexts/FavouritesContext'
-import styles from './StartScreenPage.module.css'
-import ErrorMessage from '../common/MetaMaskTransaction/ErrorMessage'
+import { Button, Spinner } from "react-bootstrap";
+import { useState, useContext } from "react";
+import { FavouritesContext } from "../../Contexts/FavouritesContext";
+import ErrorMessage from "../common/MetaMaskTransaction/ErrorMessage";
+import styles from "./StartScreenPage.module.css";
 function StartScreenPage({ setIsConnected }) {
-  const [error, setError] = useState('')
+  const [error, setError] = useState("");
+  const { setNotificationMessage, setNotifications } =
+    useContext(FavouritesContext);
 
-  const { setNotificationMessage, setNotifications } = useContext(
-    FavouritesContext,
-  )
-
-  const { ethereum } = window
+  const { ethereum } = window;
   const submitHandler = async () => {
     if (!ethereum) {
-      setError({ message: 'You need MetaMask extention' })
+      setError({ message: "You need MetaMask extention" });
     } else {
       ethereum
-        .request({ method: 'eth_requestAccounts' })
+        .request({ method: "eth_requestAccounts" })
         .then(changeAccountHandler)
-        .catch(setError)
+        .catch(setError);
     }
-  }
+  };
   const changeAccountHandler = (acc) => {
-    acc[0] ? connectHandler(acc) : disconnectHandler()
-  }
+    acc[0] ? connectHandler(acc) : disconnectHandler();
+  };
 
-  const connectHandler = (acc) => {
-    localStorage.setItem('metamask-account', acc)
-    setIsConnected(true)
-    setNotificationMessage('Connected')
-    setNotifications(true)
-    setError('')
-  }
+  const connectHandler = () => {
+    setIsConnected(true);
+    setNotificationMessage("Connected");
+    setNotifications(true);
+    setError("");
+  };
   const disconnectHandler = () => {
-    localStorage.removeItem('metamask-account')
-    setIsConnected(false)
-  }
+    setIsConnected(false);
+  };
 
-  ethereum && ethereum.on('accountsChanged', changeAccountHandler)
+  ethereum && ethereum.on("accountsChanged", changeAccountHandler);
 
   return (
     <>
@@ -63,6 +59,6 @@ function StartScreenPage({ setIsConnected }) {
         </div>
       </div>
     </>
-  )
+  );
 }
-export default StartScreenPage
+export default StartScreenPage;
