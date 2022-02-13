@@ -1,4 +1,4 @@
-import { Button, Spinner } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useState, useContext } from "react";
 import { FavouritesContext } from "../../Contexts/FavouritesContext";
 import ErrorMessage from "../common/MetaMaskTransaction/ErrorMessage";
