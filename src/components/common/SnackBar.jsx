@@ -3,7 +3,9 @@ import { useContext } from 'react'
 import { FavouritesContext } from '../../Contexts/FavouritesContext'
 import styles from './Snackbar.module.css'
 export default function SnackBar() {
-  const { notifications, setNotifications } = useContext(FavouritesContext)
+  const { notifications, setNotifications, notificationMessage } = useContext(
+    FavouritesContext,
+  )
   return (
     <Row>
       <Col xs={6}>
@@ -17,7 +19,7 @@ export default function SnackBar() {
           <Toast.Header>
             <strong className="me-auto">Notification</strong>
           </Toast.Header>
-          <Toast.Body>Succesfully added/removed beer</Toast.Body>
+          <Toast.Body>{notificationMessage}</Toast.Body>
         </Toast>
       </Col>
     </Row>

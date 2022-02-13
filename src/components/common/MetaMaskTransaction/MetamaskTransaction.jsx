@@ -1,44 +1,41 @@
-import { useState } from "react";
-import { ethers } from "ethers";
-import PaymentPoster from "../PaymentPoster";
-import ErrorMessage from "./ErrorMessage";
-import TxList from "./TxList";
+import { useState } from 'react'
+import { ethers } from 'ethers'
+import PaymentPoster from '../PaymentPoster'
+import ErrorMessage from './ErrorMessage'
+import TxList from './TxList'
 const startPayment = async ({ setError, setTxs, ether, addr }) => {
   try {
     if (!window.ethereum)
-      throw new Error("You need to install MetaMask extention.");
-    await window.ethereum.send("eth_requestAccounts");
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    ethers.utils.getAddress(addr);
+      throw new Error('You need to install MetaMask extention.')
+    await window.ethereum.send('eth_requestAccounts')
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
+    ethers.utils.getAddress(addr)
     const tx = await signer.sendTransaction({
       to: addr,
       value: ethers.utils.parseEther(ether),
-    });
-    console.log({ ether, addr });
-    console.log("tx", tx);
-    setTxs([tx]);
-    console.log("payment succesfully");
+    })
+    setTxs([tx])
   } catch (err) {
-    setError(err.message);
+    setError(err.message)
   }
-};
+}
 
 export default function MetamaskTransaction() {
-  const [error, setError] = useState();
-  const [txs, setTxs] = useState([]);
+  const [error, setError] = useState()
+  const [txs, setTxs] = useState([])
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const data = new FormData(e.target);
-    setError();
+    e.preventDefault()
+    const data = new FormData(e.target)
+    setError()
     await startPayment({
       setError,
       setTxs,
-      ether: data.get("ether"),
-      addr: data.get("addr"),
-    });
-  };
+      ether: data.get('ether'),
+      addr: data.get('addr'),
+    })
+  }
 
   return (
     <form className="m-4" onSubmit={handleSubmit}>
@@ -70,7 +67,7 @@ export default function MetamaskTransaction() {
         <footer className="p-4">
           <button
             type="submit"
-            className="btn btn-primary submit-button focus:ring focus:outline-none w-full"
+            className="btn btn-primary submit-button focus:ring focus:outline-none w-full mb-3"
           >
             Pay now
           </button>
@@ -79,5 +76,5 @@ export default function MetamaskTransaction() {
         </footer>
       </div>
     </form>
-  );
+  )
 }

@@ -1,21 +1,32 @@
 import Button from 'react-bootstrap/Button'
 import { AiOutlineStar, AiFillStar } from 'react-icons/ai'
 import { useLocation } from 'react-router-dom'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { FavouritesContext } from '../../Contexts/FavouritesContext'
 import beerSound from '../../audio/openbeer.mp3'
 import styles from './Card.module.css'
 export default function Card({ beer, setForceRender, forceRender }) {
-  const { favouritesSet, setNotifications } = useContext(FavouritesContext)
+  const {
+    favouritesSet,
+    setNotifications,
+    setNotificationMessage,
+  } = useContext(FavouritesContext)
   const location = useLocation()
+  const favBeers = localStorage.getItem('favBeers') !== null
+
+  //Checks if the beer is already liked to find out which star will be used.
+  const isLiked =
+    favBeers &&
+    JSON.parse(localStorage.getItem('favBeers'))
+      .map((beer) => JSON.parse(beer))
+      .find((favbeer) => favbeer.id === beer.id)
 
   const likeHandler = (favbeer, command) => {
     //If page is refreshed, takes initial set from localstorage becouse favouritesSet will be empty
-    const handler =
-      localStorage.getItem('favBeers') !== null
-        ? new Set(JSON.parse(localStorage.getItem('favBeers')))
-        : favouritesSet
+    const handler = favBeers
+      ? new Set(JSON.parse(localStorage.getItem('favBeers')))
+      : favouritesSet
 
     //If we are on favourites page, user can only remove the beer
     command === 'like' && !location.pathname.endsWith('favourites')
@@ -28,7 +39,9 @@ export default function Card({ beer, setForceRender, forceRender }) {
 
     //Force the page to rerender when beer is deleted
     setForceRender && setForceRender(!forceRender)
-
+    setNotificationMessage(
+      isLiked ? 'Removed from favourites' : 'Added to favourite',
+    )
     setNotifications(true)
   }
 
@@ -37,11 +50,6 @@ export default function Card({ beer, setForceRender, forceRender }) {
     const openBeerSound = new Audio(beerSound)
     openBeerSound.play()
   }
-
-  //Checks if the beer is already liked to find out which star will be used.
-  const isLiked = JSON.parse(localStorage.getItem('favBeers'))
-    .map((beer) => JSON.parse(beer))
-    .find((favbeer) => favbeer.id === beer.id)
 
   return (
     <div className={`card ${styles.cardholder}`}>

@@ -2,10 +2,16 @@ import React from 'react'
 import { Nav, Navbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import styles from './Layout.module.css'
-export default function Layout({ children }) {
+export default function Layout({ children, setIsConnected }) {
   const linkStyles = {
     textDecoration: 'none',
   }
+
+  const disconnectHandler = () => {
+    localStorage.removeItem('metamask-account')
+    setIsConnected(false)
+  }
+
   return (
     <>
       <Navbar className={styles.appbarcontainer}>
@@ -22,6 +28,9 @@ export default function Layout({ children }) {
               <Link style={linkStyles} to={'random'}>
                 <li>Random</li>
               </Link>
+              <li onClick={disconnectHandler} style={{ cursor: 'pointer' }}>
+                Disconnect
+              </li>
             </Nav>
           </div>
         </div>

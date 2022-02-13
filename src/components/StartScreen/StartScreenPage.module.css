@@ -1,0 +1,34 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 5%;
+}
+.container {
+  height: 100vh;
+  background: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/a94bba125315467.611664c2116fd.jpeg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+.button {
+  position: 'absolute';
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.hide {
+  display: none;
+}
+.error {
+  margin-top: 10px;
+  color: red;
+  background: rgb(240, 240, 240);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
