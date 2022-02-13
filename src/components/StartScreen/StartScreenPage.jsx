@@ -41,16 +41,11 @@ function StartScreenPage({ setIsConnected }) {
         <div className={styles.wrapper}>
           <Button
             className="btn btn-primary btn-lg btn-block"
+            data-toggle="tooltip"
+            title="If the dialog doesnt'n show up, please refresh the page and try again."
+            tabindex="0"
             onClick={submitHandler}
           >
-            <Spinner
-              className={styles.hide}
-              as="span"
-              animation="border"
-              size="sm"
-              role="status"
-              aria-hidden="true"
-            />
             <span>Connect your MetaMask Wallet to continue</span>
           </Button>
           <div className="w-full  bg-white rounded-md mt-3">
