@@ -1,6 +1,7 @@
 # Cool Beers App
 
 - App is Avaiable at https://beers-131cb.web.app/
+- If the dialog does'n pop up when you try to login, please refresh the page
 
 # Tools used:
 - Styling - Boostrap
