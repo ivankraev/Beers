@@ -7,9 +7,14 @@
 - Fetching data - axios
 - Deployment - Firebase tools
 
+# Requires MetaMask login to unlock the application
+
+![final](https://user-images.githubusercontent.com/89323943/153770045-97047032-2e5d-494d-9ba7-c2aaeeac301d.png)
+
 # This is how the home page looks like
 
 - Beer opening sound when user clicks on the image
+
 
 ![beersfavourite](https://user-images.githubusercontent.com/89323943/153699321-74d29eff-f8c0-4c5a-9310-86f5a76fc2f8.png)
 
