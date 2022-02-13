@@ -1,7 +1,4 @@
-import React from "react";
-import FavouritesContainer from "./FavouritesContainer";
-function FavouritesPage() {
-  return <FavouritesContainer />;
+import FavouritesContainer from './FavouritesContainer'
+export default function FavouritesPage() {
+  return <FavouritesContainer />
 }
-
-export default FavouritesPage;
