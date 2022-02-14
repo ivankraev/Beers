@@ -1,19 +1,22 @@
-import { useState } from 'react'
-import styles from '../HomePage/BeersContainer.module.css'
-import Card from '../common/Card'
+import { useState } from "react";
+import { AiOutlineStar } from "react-icons/ai";
+import styles from "../HomePage/BeersContainer.module.css";
+import Card from "../common/Card";
 export default function FavouritesContainer() {
-  const [forceRender, setForceRender] = useState(false)
+  const [forceRender, setForceRender] = useState(false);
 
   const favBeers =
-    localStorage.getItem('favBeers') === null
+    localStorage.getItem("favBeers") === null
       ? []
-      : JSON.parse(localStorage.getItem('favBeers')).map((beer) =>
-          JSON.parse(beer),
-        )
+      : JSON.parse(localStorage.getItem("favBeers")).map((beer) =>
+          JSON.parse(beer)
+        );
 
   return (
-    <div style={{ padding: '24px 2%' }}>
-      <h1 style={{ marginBottom: 24 }}>Favourites</h1>
+    <div style={{ padding: "24px 2%" }}>
+      <div className={styles.header}>
+        <h2>Favourites</h2>
+      </div>
       <div className={styles.container}>
         {favBeers.length > 0 ? (
           favBeers.map((beer, index) => (
@@ -29,5 +32,5 @@ export default function FavouritesContainer() {
         )}
       </div>
     </div>
-  )
+  );
 }

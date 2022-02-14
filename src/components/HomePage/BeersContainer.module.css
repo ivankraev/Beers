@@ -3,8 +3,14 @@
   gap: 2rem;
   overflow: hidden;
   grid-template-columns: repeat(auto-fit, minmax(352px, 1fr));
+  padding: 3%;
 }
 .backbutton {
   position: absolute;
   left: 48px;
+}
+.header {
+  display: flex;
+  width:100%;
+  justify-content: center;
 }

@@ -14,8 +14,9 @@ function RandomBeer() {
     };
     getRandomBeer();
   }, []);
+  console.log(randomBeer);
   return (
-    <div style={{ padding: "24px 2%" }}>
+    <div style={{ padding: "5%" }}>
       <h1 style={{ marginBottom: 24 }}>Your Beer:</h1>
       {randomBeer ? <Card beer={randomBeer}></Card> : <p>Loading...</p>}
     </div>

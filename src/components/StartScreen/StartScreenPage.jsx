@@ -40,10 +40,9 @@ function StartScreenPage({ setIsConnected }) {
       <div className={styles.container}>
         <div className={styles.wrapper}>
           <Button
-            className="btn btn-primary btn-lg btn-block"
+            className="btn btn-primary btn-lg btn-block shadow"
             data-toggle="tooltip"
             title="If the dialog doesnt'n show up, please refresh the page and try again."
-            tabindex="0"
             onClick={submitHandler}
           >
             <span>Connect your MetaMask Wallet to continue</span>
