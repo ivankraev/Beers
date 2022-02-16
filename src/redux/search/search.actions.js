@@ -1,6 +1,5 @@
 import { SearchActionTypes } from "./search.types"
 
-
 export const setSearchField = searchText => ({
     type: SearchActionTypes.SET_SEARCH,
     payload: searchText

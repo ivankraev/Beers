@@ -6,15 +6,19 @@ import {
   setSearchField,
   setSearchedBeers,
 } from "../../redux/search/search.actions";
+import { useState } from "react";
 
-function Searchbar({ setSearchField, currentSearch, setSearchedBeers }) {
+function Searchbar({ setSearchField, setSearchedBeers }) {
+  const [searchValue, setSearchValue] = useState("");
+
   const searchHandler = async () => {
-    if (currentSearch === "") return;
+    if (searchValue === "") return;
     const response = await axios
-      .get(endpoints.search(currentSearch))
+      .get(endpoints.search(searchValue))
       .catch((err) => console.log(err));
-    response.data.length === 0 && alert("Sorry, nothing found");
-    setSearchedBeers(response.data);
+    response.data.length === 0
+      ? alert("Sorry, nothing found")
+      : setSearchedBeers(response.data);
   };
 
   return (
@@ -27,11 +31,14 @@ function Searchbar({ setSearchField, currentSearch, setSearchedBeers }) {
           aria-label="Search"
           aria-describedby="search-addon"
           onChange={(e) => {
-            setSearchField(e.target.value);
+            setSearchValue(e.target.value);
           }}
         />
         <button
-          onClick={searchHandler}
+          onClick={() => {
+            searchHandler();
+            setSearchField(searchValue);
+          }}
           type="button"
           className="btn btn-primary"
         >
@@ -42,12 +49,9 @@ function Searchbar({ setSearchField, currentSearch, setSearchedBeers }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  currentSearch: state.search.search,
-});
 const mapDispatchToProps = (dispatch) => ({
   setSearchField: (search) => dispatch(setSearchField(search)),
   setSearchedBeers: (beers) => dispatch(setSearchedBeers(beers)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Searchbar);
+export default connect(null, mapDispatchToProps)(Searchbar);

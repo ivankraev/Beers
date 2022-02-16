@@ -7,7 +7,7 @@ import { axios } from "../../utils/api-client";
 import { setSearchedBeers } from "../../redux/search/search.actions";
 import styles from "./BeersContainer.module.css";
 import Card from "../common/Card";
-function BeersContainer({ searchBeers, search, setSearchedBeers }) {
+function BeersContainer({ searchBeers, currentSearch, setSearchedBeers }) {
   const [beers, setBeers] = useState([]);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ function BeersContainer({ searchBeers, search, setSearchedBeers }) {
       setBeers(response.data);
     };
     getAllBeers();
-  });
+  },[]);
 
   return (
     <>
@@ -33,7 +33,7 @@ function BeersContainer({ searchBeers, search, setSearchedBeers }) {
         </Button>
       )}
       {searchBeers.length > 0 && (
-        <h4 style={{ textAlign: "center" }}>Search results for {search}</h4>
+        <h4 style={{ textAlign: "center" }}>Search results for {currentSearch}</h4>
       )}
       <br />
       <div className={styles.container}>
