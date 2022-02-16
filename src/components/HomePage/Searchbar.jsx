@@ -1,13 +1,14 @@
 import styles from "./Search.module.css";
-import { useContext } from "react";
 import { connect } from "react-redux";
-import { SearchContext } from "../../Contexts/SearchContext";
 import { axios } from "../../utils/api-client";
 import { endpoints } from "../../utils/api-endpoints";
-import { setSearchField } from "../../redux/search/search.actions";
-function Searchbar({ setSearchField, currentSearch }) {
-  const { setSearchedBeers } = useContext(SearchContext);
+import {
+  setSearchField,
+  setSearchedBeers,
+} from "../../redux/search/search.actions";
 
+function Searchbar({ setSearchField, currentSearch, setSearchedBeers }) {
+  
   const searchHandler = async () => {
     if (currentSearch === "") return;
     const response = await axios
@@ -47,6 +48,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   setSearchField: (search) => dispatch(setSearchField(search)),
+  setSearchedBeers: (beers) => dispatch(setSearchedBeers(beers)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Searchbar);

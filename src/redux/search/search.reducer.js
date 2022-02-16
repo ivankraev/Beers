@@ -2,6 +2,7 @@
 
 const INITIAL_STATE = {
     search: '',
+    beers: [],
 }
 
 
@@ -11,6 +12,11 @@ const searchReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 search: action.payload
+            }
+        case 'SET_BEERS':
+            return {
+                ...state,
+                beers: action.payload
             }
 
         default:
