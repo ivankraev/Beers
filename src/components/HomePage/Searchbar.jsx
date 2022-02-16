@@ -8,7 +8,6 @@ import {
 } from "../../redux/search/search.actions";
 
 function Searchbar({ setSearchField, currentSearch, setSearchedBeers }) {
-  
   const searchHandler = async () => {
     if (currentSearch === "") return;
     const response = await axios

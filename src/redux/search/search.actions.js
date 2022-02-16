@@ -3,8 +3,6 @@ export const setSearchField = searchText => ({
     payload: searchText
 })
 
-
-
 export const setSearchedBeers = beers => ({
     type: 'SET_BEERS',
     payload: beers

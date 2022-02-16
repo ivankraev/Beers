@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
+
 import { endpoints } from "../../utils/api-endpoints";
 import { axios } from "../../utils/api-client";
 import { setSearchedBeers } from "../../redux/search/search.actions";
@@ -17,7 +18,7 @@ function BeersContainer({ searchBeers, search, setSearchedBeers }) {
       setBeers(response.data);
     };
     getAllBeers();
-  }, []);
+  });
 
   return (
     <>
