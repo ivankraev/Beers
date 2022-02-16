@@ -1,15 +1,17 @@
 import styles from "./Search.module.css";
 import { useContext } from "react";
+import { connect } from "react-redux";
 import { SearchContext } from "../../Contexts/SearchContext";
 import { axios } from "../../utils/api-client";
 import { endpoints } from "../../utils/api-endpoints";
-export default function Searchbar() {
-  const { search, setSearch, setSearchedBeers } = useContext(SearchContext);
+import { setSearchField } from "../../redux/search/search.actions";
+function Searchbar({ setSearchField, currentSearch }) {
+  const { setSearchedBeers } = useContext(SearchContext);
 
   const searchHandler = async () => {
-    if (search === "") return;
+    if (currentSearch === "") return;
     const response = await axios
-      .get(endpoints.search(search))
+      .get(endpoints.search(currentSearch))
       .catch((err) => console.log(err));
     response.data.length === 0 && alert("Sorry, nothing found");
     setSearchedBeers(response.data);
@@ -25,7 +27,7 @@ export default function Searchbar() {
           aria-label="Search"
           aria-describedby="search-addon"
           onChange={(e) => {
-            setSearch(e.target.value);
+            setSearchField(e.target.value);
           }}
         />
         <button
@@ -39,3 +41,12 @@ export default function Searchbar() {
     </div>
   );
 }
+
+const mapStateToProps = (state) => ({
+  currentSearch: state.search.search,
+});
+const mapDispatchToProps = (dispatch) => ({
+  setSearchField: (search) => dispatch(setSearchField(search)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Searchbar);
