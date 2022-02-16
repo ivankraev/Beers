@@ -1,9 +1,12 @@
+import { SearchActionTypes } from "./search.types"
+
+
 export const setSearchField = searchText => ({
-    type: 'SET_SEARCH',
+    type: SearchActionTypes.SET_SEARCH,
     payload: searchText
 })
 
 export const setSearchedBeers = beers => ({
-    type: 'SET_BEERS',
+    type: SearchActionTypes.SET_BEERS,
     payload: beers
 })
