@@ -1,13 +1,9 @@
 import { Button } from "react-bootstrap";
-import { useState, useContext } from "react";
-import { FavouritesContext } from "../../Contexts/FavouritesContext";
+import { useState } from "react";
 import ErrorMessage from "../common/MetaMaskTransaction/ErrorMessage";
 import styles from "./StartScreenPage.module.css";
 function StartScreenPage({ setIsConnected }) {
   const [error, setError] = useState("");
-  const { setNotificationMessage, setNotifications } =
-    useContext(FavouritesContext);
-
   const { ethereum } = window;
   const submitHandler = async () => {
     if (!ethereum) {
@@ -20,13 +16,11 @@ function StartScreenPage({ setIsConnected }) {
     }
   };
   const changeAccountHandler = (acc) => {
-    acc[0] ? connectHandler(acc) : disconnectHandler();
+    acc[0] ? connectHandler() : disconnectHandler();
   };
 
   const connectHandler = () => {
     setIsConnected(true);
-    setNotificationMessage("Connected");
-    setNotifications(true);
     setError("");
   };
   const disconnectHandler = () => {

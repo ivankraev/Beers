@@ -1,8 +1,9 @@
 import { combineReducers } from "redux"
 import { persistReducer } from "redux-persist"
-import searchReducer from "./search/search.reducer"
 import storage from "redux-persist/lib/storage"
+import searchReducer from "./search/search.reducer"
 import favReducer from "./favourites/favourites.reducer"
+import notificationsReducer from "./notifications/notifications.reducer"
 
 const persistConfig = {
     key: 'root',
@@ -11,6 +12,10 @@ const persistConfig = {
 
 }
 
-const rootReducer = combineReducers({ search: searchReducer, favourites: favReducer })
+const rootReducer = combineReducers({
+    search: searchReducer,
+    favourites: favReducer,
+    notifications: notificationsReducer
+})
 
 export default persistReducer(persistConfig, rootReducer)

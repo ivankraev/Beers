@@ -1,10 +1,7 @@
-
-
 const INITIAL_STATE = {
     search: '',
     beers: [],
 }
-
 
 const searchReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {

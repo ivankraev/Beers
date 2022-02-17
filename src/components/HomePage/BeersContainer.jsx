@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { connect } from "react-redux";
-
 import { endpoints } from "../../utils/api-endpoints";
 import { axios } from "../../utils/api-client";
 import { setSearchedBeers } from "../../redux/search/search.actions";
@@ -18,32 +17,39 @@ function BeersContainer({ searchBeers, currentSearch, setSearchedBeers }) {
       setBeers(response.data);
     };
     getAllBeers();
-  },[]);
+  }, []);
 
-  return (
-    <>
-      {searchBeers.length > 0 && (
+  const navigation = () => {
+    return (
+      <>
         <Button
-          className={styles.backbutton}
+          className={styles.bckbtn}
           onClick={() => {
             setSearchedBeers([]);
           }}
         >
           Back
         </Button>
-      )}
-      {searchBeers.length > 0 && (
-        <h4 style={{ textAlign: "center" }}>Search results for {currentSearch}</h4>
-      )}
+        <h4 style={{ textAlign: "center" }}>
+          Search results for: "{currentSearch}"
+        </h4>
+      </>
+    );
+  };
+
+  return (
+    <>
+      {searchBeers.length > 0 && navigation()}
       <br />
       <div className={styles.container}>
-        {searchBeers.length === 0
-          ? beers.map((beer) => <Card key={beer.id} beer={beer}></Card>)
-          : searchBeers.map((beer) => <Card key={beer.id} beer={beer}></Card>)}
+        {searchBeers.length > 0
+          ? searchBeers.map((beer) => <Card key={beer.id} beer={beer}></Card>)
+          : beers.map((beer) => <Card key={beer.id} beer={beer}></Card>)}
       </div>
     </>
   );
 }
+
 const mapDispatchToProps = (dispatch) => ({
   setSearchedBeers: (beers) => dispatch(setSearchedBeers(beers)),
 });

@@ -11,10 +11,10 @@ import {
   FavouritesPage,
   Layout,
   HomePage,
-  FavouritesContextProvider,
   StartScreenPage,
+  MetaMaskTransaction
 } from '../src/components/index'
-import MetamaskTransaction from './components/common/MetaMaskTransaction/MetamaskTransaction'
+
 function App({ setSearchField }) {
   const [isConnected, setIsConnected] = useState(false)
   const { pathname } = useLocation();
@@ -41,26 +41,22 @@ function App({ setSearchField }) {
 
   return (
     <div className="App">
-      <FavouritesContextProvider>
-        {!isConnected ? (
-          <StartScreenPage
-            setIsConnected={setIsConnected}
-            isConnected={isConnected}
-          />
-        ) : (
-          <>
-            <Snackbar />
-            <Layout setIsConnected={setIsConnected}>
-              <Routes>
-                <Route path="/" element={<HomePage pathname={pathname} />} />
-                <Route path="favourites" element={<FavouritesPage />} />
-                <Route path="random" element={<RandomBeer />} />
-                <Route path="get/:id" element={<MetamaskTransaction />} />
-              </Routes>
-            </Layout>
-          </>
-        )}
-      </FavouritesContextProvider>
+      {!isConnected ? (
+        <StartScreenPage setIsConnected={setIsConnected} />
+      ) : (
+        <>
+          <Snackbar />
+          <Layout setIsConnected={setIsConnected}>
+            <Routes>
+              <Route path="/" element={<HomePage pathname={pathname} />} />
+              <Route path="favourites" element={<FavouritesPage />} />
+              <Route path="random" element={<RandomBeer />} />
+              <Route path="get/:id" element={<MetaMaskTransaction />} />
+            </Routes>
+          </Layout>
+        </>
+      )}
+
     </div>
   )
 }
