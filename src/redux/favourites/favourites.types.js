@@ -1,0 +1,4 @@
+export const FavTypes = {
+    ADD_FAVOURITE: 'ADD_FAVOURITE',
+    REMOVE_FAVOURITE: 'REMOVE_FAVOURITE'
+}

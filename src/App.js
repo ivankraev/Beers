@@ -33,9 +33,6 @@ function App({ setSearchField }) {
   }
 
 
-
-
-
   useEffect(() => {
     getAddress()
     setSearchField('')

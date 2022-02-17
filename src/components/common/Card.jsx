@@ -2,40 +2,31 @@ import Button from "react-bootstrap/Button";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { useLocation } from "react-router-dom";
 import { useContext } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { FavouritesContext } from "../../Contexts/FavouritesContext";
+import {
+  addToFavourites,
+  removeFromFavourites,
+} from "../../redux/favourites/favourites.actions";
 import beerSound from "../../audio/openbeer.mp3";
 import styles from "./Card.module.css";
-export default function Card({ beer, setForceRender, forceRender }) {
-  const { favouritesSet, setNotifications, setNotificationMessage } =
+function Card({ beer, addToFavourites, removeFromFavourites, favs }) {
+  const { setNotifications, setNotificationMessage } =
     useContext(FavouritesContext);
   const location = useLocation();
-  const favBeers = localStorage.getItem("favBeers") !== null;
-
   //Checks if the beer is already liked to find out which star will be used.
-  const isLiked =
-    favBeers &&
-    JSON.parse(localStorage.getItem("favBeers"))
-      .map((beer) => JSON.parse(beer))
-      .find((favbeer) => favbeer.id === beer.id);
+  const isLiked = favs.find((favbeer) => favbeer.id === beer.id);
 
   const likeHandler = (favbeer, command) => {
-    //If page is refreshed, takes initial set from localstorage becouse favouritesSet will be empty
-    const handler = favBeers
-      ? new Set(JSON.parse(localStorage.getItem("favBeers")))
-      : favouritesSet;
-
     //If we are on favourites page, user can only remove the beer
     command === "like" && !location.pathname.endsWith("favourites")
-      ? handler.add(JSON.stringify(favbeer))
+      ? addToFavourites(favbeer)
       : command === "dislike" && !location.pathname.endsWith("favourites")
-      ? handler.delete(JSON.stringify(favbeer))
-      : handler.delete(JSON.stringify(favbeer));
+      ? removeFromFavourites(favbeer)
+      : //If we are on favourites page we can only remove items
+        removeFromFavourites(favbeer);
 
-    localStorage.setItem("favBeers", JSON.stringify(Array.from(handler)));
-
-    //Force the page to rerender when beer is deleted
-    setForceRender && setForceRender(!forceRender);
     setNotificationMessage(
       isLiked ? "Removed from favourites" : "Added to favourite"
     );
@@ -89,3 +80,14 @@ export default function Card({ beer, setForceRender, forceRender }) {
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  addToFavourites: (beer) => dispatch(addToFavourites(beer)),
+  removeFromFavourites: (beer) => dispatch(removeFromFavourites(beer)),
+});
+
+const mapStateToProps = (state) => ({
+  favs: state.favourites.favouritesSet,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card);
