@@ -1,4 +1,4 @@
-import { FetchBeersTypes } from "./beers.types";
+import FetchBeersTypes from "./beers.types";
 
 export const setBeers = beers => ({
     type: FetchBeersTypes.SET_BEERS,
