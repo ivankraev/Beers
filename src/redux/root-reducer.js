@@ -9,7 +9,6 @@ const persistConfig = {
     key: 'root',
     storage,
     whitelist: ['favourites']
-
 }
 
 const rootReducer = combineReducers({

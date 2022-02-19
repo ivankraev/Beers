@@ -15,7 +15,7 @@ export default function PaymentPoster() {
       setBeer(response.data[0]);
     };
     getBeer();
-  }, []);
+  }, [id]);
 
   // Play open beer sound when clicked on bottle
   const start = () => {
