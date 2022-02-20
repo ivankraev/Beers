@@ -1,8 +1,3 @@
-export function chooseMessage(action) {
-    if (action.payload === 'like') {
-        return 'Added to favourites'
-    }
-    else {
-        return 'Removed from favourites'
-    }
+export function chooseMessage({ payload }) {
+  return payload === 'like' ? 'Added to favourites' : 'Removed from favourites'
 }

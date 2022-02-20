@@ -47,10 +47,10 @@ function Card({ beer }) {
         src={beer?.image_url}
         alt=""
       />
-      <div className={`card-body ${styles.textholder}`}>
+      <div className={styles.textholder}>
         <Star beer={beer} />
         <h5 className="card-title">{beer?.name}</h5>
-        <p className="card-text">
+        <p>
           {beer?.description.length > 120
             ? beer?.description.substring(0, 120) + '...'
             : beer?.description}

@@ -12,7 +12,7 @@ const notificationsReducer = (state = INITIAL_STATE, action) => {
             }
         case 'TRIGGER_NOTIFICATIONSOFF':
             return {
-                message: '',
+                ...state,
                 open: false
             }
         default:

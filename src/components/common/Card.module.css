@@ -4,12 +4,14 @@
   flex-direction: row;
   padding: 24px;
   border-radius: 10px;
+  height: 100%;
 }
 .image {
   width: 100px;
   height: 150px;
   object-fit: contain;
   cursor: pointer;
+  margin-inline: 10px;
 }
 .staricon {
   position: absolute;
@@ -20,7 +22,11 @@
 }
 
 .textholder {
-  text-align: left;
+  display: flex;
+  align-items: left;
+  flex-direction: column;
+  justify-content: space-between;
   margin-left: 24px;
-  padding:0
+  padding: 0;
+  height: 100%;
 }
