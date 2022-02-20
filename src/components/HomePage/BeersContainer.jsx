@@ -14,7 +14,7 @@ function BeersContainer({
 }) {
   useEffect(() => {
     startFetching();
-  }, []);
+  }, [startFetching]);
 
   const navigation = () => {
     return (

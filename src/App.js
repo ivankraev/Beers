@@ -36,7 +36,7 @@ function App({ setSearchField }) {
   useEffect(() => {
     getAddress()
     setSearchField('')
-  }, [isPageDifferentFromHome])
+  }, [isPageDifferentFromHome, setSearchField])
 
 
   return (

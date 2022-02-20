@@ -1,14 +1,11 @@
 import { NotificationsActionsTypes } from "./notifications.types"
 
-export const triggerNotifications = () => ({
+export const triggerNotifications = (command) => ({
     type: NotificationsActionsTypes.TRIGGER_NOTIFICATIONS,
+    payload: command
 })
 
 export const triggerNotificationsOff = () => ({
     type: NotificationsActionsTypes.TRIGGER_NOTIFICATIONSOFF,
 })
 
-export const notificationsMessage = message => ({
-    type: NotificationsActionsTypes.SET_MESSAGE,
-    payload: message
-})

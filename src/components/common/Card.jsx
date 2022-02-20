@@ -2,10 +2,7 @@ import Button from "react-bootstrap/Button";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  triggerNotifications,
-  notificationsMessage,
-} from "../../redux/notifications/notifications.actions";
+import { triggerNotifications } from "../../redux/notifications/notifications.actions";
 import {
   addToFavourites,
   removeFromFavourites,
@@ -13,15 +10,11 @@ import {
 import beerSound from "../../audio/openbeer.mp3";
 import styles from "./Card.module.css";
 
-function Card({ beer, add, remove, favs, notificationsOn, notificationsMsg }) {
+function Card({ beer, add, remove, favs, notificationsOn }) {
   const isLiked = favs.find((favbeer) => favbeer.id === beer.id);
 
   const likeHandler = (favbeer, command) => {
     command === "like" ? add(favbeer) : remove(favbeer);
-    notificationsOn();
-    notificationsMsg(
-      isLiked ? "Removed from favourites" : "Added to favourite"
-    );
   };
 
   const Star = ({ beer }) => {
@@ -78,8 +71,7 @@ function Card({ beer, add, remove, favs, notificationsOn, notificationsMsg }) {
 const mapDispatchToProps = (dispatch) => ({
   add: (beer) => dispatch(addToFavourites(beer)),
   remove: (beer) => dispatch(removeFromFavourites(beer)),
-  notificationsOn: () => dispatch(triggerNotifications()),
-  notificationsMsg: (message) => dispatch(notificationsMessage(message)),
+  notificationsOn: (command) => dispatch(triggerNotifications(command)),
 });
 
 const mapStateToProps = (state) => ({
