@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   addToFavourites,
@@ -9,20 +9,23 @@ import {
 import beerSound from "../../audio/openbeer.mp3";
 import styles from "./Card.module.css";
 
-function Card({ beer, add, remove, favs }) {
+const start = () => {
+  const openBeerSound = new Audio(beerSound);
+  openBeerSound.play();
+};
+
+function Card({ beer }) {
+  const favs = useSelector((state) => state.favourites.favouritesSet);
   const isLiked = favs.find((favbeer) => favbeer.id === beer.id);
+  const dispatch = useDispatch();
 
-  const likeHandler = (command) => {
-    command === "like" ? add(beer) : remove(beer);
-  };
-
-  const Star = () => {
+  const Star = ({ beer }) => {
     return isLiked ? (
       <AiFillStar
         size={25}
         className={styles.staricon}
         onClick={() => {
-          likeHandler("dislike");
+          dispatch(removeFromFavourites(beer));
         }}
       />
     ) : (
@@ -30,15 +33,10 @@ function Card({ beer, add, remove, favs }) {
         size={25}
         className={styles.staricon}
         onClick={() => {
-          likeHandler("like");
+          dispatch(addToFavourites(beer));
         }}
       />
     );
-  };
-
-  const start = () => {
-    const openBeerSound = new Audio(beerSound);
-    openBeerSound.play();
   };
 
   return (
@@ -67,13 +65,4 @@ function Card({ beer, add, remove, favs }) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  add: (beer) => dispatch(addToFavourites(beer)),
-  remove: (beer) => dispatch(removeFromFavourites(beer)),
-});
-
-const mapStateToProps = (state) => ({
-  favs: state.favourites.favouritesSet,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Card);
+export default Card;

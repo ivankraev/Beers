@@ -1,8 +1,9 @@
 import styles from "../HomePage/BeersContainer.module.css";
 import Card from "../common/Card";
-import { removeFromFavourites } from "../../redux/favourites/favourites.actions";
-import { connect } from "react-redux";
-function FavouritesContainer({ favourites }) {
+import { useSelector } from "react-redux";
+
+function FavouritesContainer() {
+  const favourites = useSelector((state) => state.favourites.favouritesSet);
   return (
     <div style={{ padding: "24px 2%" }}>
       <div className={styles.header}></div>
@@ -18,15 +19,4 @@ function FavouritesContainer({ favourites }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  favourites: state.favourites.favouritesSet,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  removeFromFavourites: (beer) => dispatch(removeFromFavourites(beer)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FavouritesContainer);
+export default FavouritesContainer;
